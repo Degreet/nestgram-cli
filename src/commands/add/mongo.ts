@@ -35,9 +35,13 @@ export async function addMongoModule() {
       text = text.replace('@Module({', `@Module({\n  modules: [UseMongoConnection('${uri}')]`);
     }
 
+    text = `import { UseMongoConnection } from '@nestgram/mongo'\n${text}`;
+
     await fs.writeFile(appModulePath, text);
     logger.success('Module added!');
   } catch (e: any) {
+    console.log(e);
+
     logger.error(
       'Failed to apply module. Check your app.module.ts file. It must be in the root of src folder',
     );

@@ -11,7 +11,7 @@ import { addModule } from './commands/add/add-module';
 console.clear();
 logger.log(figlet.textSync('Nestgram CLI', { horizontalLayout: 'full' }).blue);
 
-program.name('Nestgram').version('1.1.2').description('The Nestgram CLI');
+program.name('Nestgram').version('1.1.3').description('The Nestgram CLI');
 
 program
   .command('new')
