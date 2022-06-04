@@ -8,7 +8,7 @@ export async function createNewProject(name: string): Promise<void> {
   const destPath: string = path.resolve(process.cwd(), name);
 
   logger.success('Creating new project into', name.grey);
-  await fs.copy(path.resolve(__dirname, '..', 'template'), destPath);
+  await fs.copy(path.resolve(__dirname, '..', '..', '..', 'template'), destPath);
 
   logger.success('Installing dependencies...');
   await exec(`yarn --cwd ${destPath}`);
