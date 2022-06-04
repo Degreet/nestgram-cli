@@ -1,15 +1,14 @@
 {
   "name": "@nestgram/cli",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "type": "commonjs",
   "license": "MIT",
   "description": "CLI for Nestgram framework",
   "author": "Degreet <degreetpro@gmail.com>",
   "scripts": {
     "start": "npm run build && chmod 775 dist/index.js && dist/index.js",
-    "prepare": "npm run build",
+    "prepare": "npm run build && chmod +x dist/index.js",
     "build": "rm -rf dist && tsc"
   },
   "files": [
