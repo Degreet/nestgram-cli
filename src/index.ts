@@ -4,8 +4,9 @@ import { program } from 'commander';
 import * as figlet from 'figlet';
 import 'colors';
 
-import { createNewProject } from './new-project';
+import { createNewProject } from './commands/new/new-project';
 import { logger } from './utils/logger';
+import { addModule } from './commands/add/add-module';
 
 console.clear();
 logger.log(figlet.textSync('Nestgram CLI', { horizontalLayout: 'full' }).blue);
@@ -17,5 +18,7 @@ program
   .argument('name', 'Project name')
   .description('Creates new project')
   .action(createNewProject);
+
+program.command('add').description('Adds module to your project').action(addModule);
 
 program.parse(process.argv);

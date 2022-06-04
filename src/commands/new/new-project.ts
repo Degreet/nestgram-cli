@@ -1,5 +1,5 @@
-import { logger } from './utils/logger';
-import { exec } from './utils/exec';
+import { logger } from '../../utils/logger';
+import { exec } from '../../utils/exec';
 
 import * as fs from 'fs-extra';
 import * as path from 'path';

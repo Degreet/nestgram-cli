@@ -4,11 +4,15 @@ export class Logger {
   }
 
   success(...texts: string[]) {
-    this.log(`[NestGram]`.green, ...texts);
+    this.log(`[NestGram CLI]`.green, ...texts);
   }
 
   info(...texts: string[]) {
-    this.log(`[NestGram]`.blue, ...texts);
+    this.log(`[NestGram CLI]`.blue, ...texts);
+  }
+
+  error(...texts: string[]) {
+    this.log(`[NestGram CLI]`.red, ...texts);
   }
 }
 
