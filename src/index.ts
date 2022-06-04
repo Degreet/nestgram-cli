@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 
+import { program } from 'commander';
 import * as figlet from 'figlet';
 import 'colors';
 
-import { program } from 'commander';
 import { createNewProject } from './new-project';
+import { logger } from './utils/logger';
 
 console.clear();
-console.log(figlet.textSync('Nestgram CLI', { horizontalLayout: 'full' }).blue);
+logger.log(figlet.textSync('Nestgram CLI', { horizontalLayout: 'full' }).blue);
 
 program.name('Nestgram').version('1.0.0').description('The Nestgram CLI');
 
