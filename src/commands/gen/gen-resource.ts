@@ -5,6 +5,8 @@ import * as path from 'path';
 import { exec } from '../../utils/exec';
 
 export async function genResource(name: string) {
+  name = name.toLowerCase();
+
   const resourcePath: string = path.resolve(__dirname, '..', '..', '..', 'resource');
   logger.success('Generating resource', name.grey + '...');
 
@@ -32,11 +34,15 @@ export async function genResource(name: string) {
   controllerFileText = controllerFileText.replace(/AppService/g, `${className}Service`);
   controllerFileText = controllerFileText.replace(/AppController/g, `${className}Controller`);
   controllerFileText = controllerFileText.replace(/appService/g, `${name}Service`);
+  controllerFileText = controllerFileText.replace('./service', `./${name}.service`);
 
   serviceFileText = serviceFileText.replace('AppService', `${className}Service`);
+  await fs.writeFile(path.resolve(process.cwd(), 'src', name, `${name}.module.ts`), moduleFileText);
 
-  await fs.writeFile(path.resolve(process.cwd(), name, `${name}.module.ts`), moduleFileText);
-  await fs.writeFile(path.resolve(process.cwd(), name, `${name}.service.ts`), serviceFileText);
+  await fs.writeFile(
+    path.resolve(process.cwd(), 'src', name, `${name}.service.ts`),
+    serviceFileText,
+  );
 
   await fs.writeFile(
     path.resolve(process.cwd(), name, `${name}.controller.ts`),
