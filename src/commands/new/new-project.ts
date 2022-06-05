@@ -26,5 +26,5 @@ export async function createNewProject(name: string): Promise<void> {
   );
 
   logger.success('Project created!');
-  logger.info('Run project'.grey, `cd ${name} && npm start`);
+  logger.info('Run project'.grey, `cd ${name} && npm run dev`);
 }
