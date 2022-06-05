@@ -4,6 +4,7 @@ import { exec } from '../../utils/exec';
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
+import { MONGO_MODULE_DOCS_LINK } from '../../constants';
 
 export async function addMongoModule() {
   const uriPrompt: any = await inquirer.prompt({
@@ -37,6 +38,7 @@ export async function addMongoModule() {
 
     await fs.writeFile(appModulePath, text);
     logger.success('Module added!');
+    logger.info('You can read about mongo module here', MONGO_MODULE_DOCS_LINK);
   } catch (e: any) {
     logger.realError(e);
 
