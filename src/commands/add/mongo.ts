@@ -40,6 +40,8 @@ export async function addMongoModule() {
     await fs.writeFile(appModulePath, text);
     logger.success('Module added!');
   } catch (e: any) {
+    logger.realError(e);
+
     logger.error(
       'Failed to apply module. Check your app.module.ts file. It must be in the root of src folder',
     );

@@ -14,6 +14,10 @@ export class Logger {
   error(...texts: string[]) {
     this.log(`[NestGram CLI]`.red, ...texts);
   }
+
+  realError(...texts: string[]) {
+    this.log(`\n[RealError]`.bgRed, ...texts, `\n`);
+  }
 }
 
 export const logger: Logger = new Logger();
