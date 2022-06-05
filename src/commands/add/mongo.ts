@@ -26,13 +26,11 @@ export async function addMongoModule() {
 
       if (text.match(/modules: \[.*?,]/)) {
         replaceValue += ', ';
-      } else if (text.match(/modules: \[.*?]/)) {
-        replaceValue += ']';
       }
 
       text = text.replace('modules: [', replaceValue);
     } else {
-      text = text.replace('@Module({', `@Module({\n  modules: [UseMongoConnection('${uri}')]`);
+      text = text.replace('@Module({', `@Module({\n  modules: [UseMongoConnection('${uri}')],`);
     }
 
     text = `import { UseMongoConnection } from '@nestgram/mongo'\n${text}`;
