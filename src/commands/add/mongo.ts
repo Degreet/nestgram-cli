@@ -23,7 +23,7 @@ export async function addMongoModule() {
     let text: string = (await fs.readFile(appModulePath)).toString();
 
     if (text.includes('modules: [')) {
-      let replaceValue: string = `modules: [UseMongoConnection('${uri}')`;
+      let replaceValue: string = `modules: [UseMongoConnection(config.get<string>('mongoUri'))`;
 
       if (text.match(/modules: \[.*?,]/)) {
         replaceValue += ', ';
@@ -31,10 +31,29 @@ export async function addMongoModule() {
 
       text = text.replace('modules: [', replaceValue);
     } else {
-      text = text.replace('@Module({', `@Module({\n  modules: [UseMongoConnection('${uri}')],`);
+      text = text.replace(
+        '@Module({',
+        `@Module({\n  modules: [UseMongoConnection(config.get<string>('mongoUri'))],`,
+      );
     }
 
-    text = `import { UseMongoConnection } from '@nestgram/mongo'\n${text}`;
+    const importText: string = `import { UseMongoConnection } from '@nestgram/mongo'`;
+    if (!text.includes(importText)) text = `${importText}\n${text}`;
+
+    let configText: string = (
+      await fs.readFile(path.resolve(process.cwd(), 'config', 'default.json'))
+    ).toString();
+
+    if (configText) {
+      const importConfigText: string = `import config from 'config'`;
+      if (!text.includes(importConfigText)) text = `${importConfigText}\n${text}`;
+
+      if (!configText.includes('"mongoUri": "')) {
+        configText = configText.replace('}', `  "mongoUri": "${uri}"\n}`);
+      }
+
+      await fs.writeFile(path.resolve(process.cwd(), 'config', 'default.json'), configText);
+    }
 
     await fs.writeFile(appModulePath, text);
     logger.success('Module added!');

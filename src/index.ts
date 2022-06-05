@@ -1,18 +1,19 @@
 #!/usr/bin/env node
 
-import { program } from 'commander';
 import * as figlet from 'figlet';
 import 'colors';
 
-import { createNewProject } from './commands/new/new-project';
+import { program } from 'commander';
 import { logger } from './utils/logger';
+
+import { createNewProject } from './commands/new/new-project';
 import { addModule } from './commands/add/add-module';
 import { genResource } from './commands/gen/gen-resource';
 
 console.clear();
 logger.log(figlet.textSync('Nestgram CLI', { horizontalLayout: 'full' }).blue);
 
-program.name('Nestgram').version('1.3.3').description('The Nestgram CLI');
+program.name('Nestgram').version('1.4.1').description('The Nestgram CLI');
 
 program
   .command('new')

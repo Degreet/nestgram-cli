@@ -8,7 +8,9 @@
 npm i -g @nestgram/cli
 ```
 
-# Use
+# Usage
+
+[Using CLI docs](https://degreetpro.gitbook.io/nestgram/advenced/cli)
 
 ```
 nestgram
