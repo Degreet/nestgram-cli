@@ -11,7 +11,7 @@ export async function genResource(name: string) {
   logger.success('Generating resource', name.grey + '...');
 
   const className: string = name[0].toUpperCase() + name.slice(1);
-  await exec(`mkdir ${name}`);
+  await exec(`mkdir src/${name}`);
 
   let moduleFileText: string = (
     await fs.readFile(path.resolve(resourcePath, 'module.ts'))
