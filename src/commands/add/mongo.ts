@@ -2,7 +2,7 @@ import * as inquirer from 'inquirer';
 import { logger } from '../../utils/logger';
 import { exec } from '../../utils/exec';
 
-import fs from 'fs-extra';
+import * as fs from 'fs-extra';
 import * as path from 'path';
 
 export async function addMongoModule() {
