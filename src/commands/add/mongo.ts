@@ -45,11 +45,11 @@ export async function addMongoModule() {
     ).toString();
 
     if (configText) {
-      const importConfigText: string = `import config from 'config'`;
+      const importConfigText: string = `import * as config from 'config'`;
       if (!text.includes(importConfigText)) text = `${importConfigText}\n${text}`;
 
       if (!configText.includes('"mongoUri": "')) {
-        configText = configText.replace('}', `  "mongoUri": "${uri}"\n}`);
+        configText = configText.replace('"\n}', `",\n  "mongoUri": "${uri}"\n}`);
       }
 
       await fs.writeFile(path.resolve(process.cwd(), 'config', 'default.json'), configText);
