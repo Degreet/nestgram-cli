@@ -3,7 +3,7 @@ import { logger } from '../../utils/logger';
 import { exec } from '../../utils/exec';
 
 import fs from 'fs-extra';
-import path from 'path';
+import * as path from 'path';
 
 export async function addMongoModule() {
   const uriPrompt: any = await inquirer.prompt({
@@ -40,8 +40,6 @@ export async function addMongoModule() {
     await fs.writeFile(appModulePath, text);
     logger.success('Module added!');
   } catch (e: any) {
-    console.log(e);
-
     logger.error(
       'Failed to apply module. Check your app.module.ts file. It must be in the root of src folder',
     );
