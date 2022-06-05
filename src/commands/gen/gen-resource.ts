@@ -45,7 +45,7 @@ export async function genResource(name: string) {
   );
 
   await fs.writeFile(
-    path.resolve(process.cwd(), name, `${name}.controller.ts`),
+    path.resolve(process.cwd(), 'src', name, `${name}.controller.ts`),
     controllerFileText,
   );
 
