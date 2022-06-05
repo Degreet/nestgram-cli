@@ -21,7 +21,7 @@ export async function createNewProject(name: string): Promise<void> {
 
   logger.success('Saving token...');
   await fs.writeFile(
-    path.resolve(process.cwd(), 'config', 'default.json'),
+    path.resolve(destPath, 'config', 'default.json'),
     `{\n  "botToken": "${token}"\n}`,
   );
 
