@@ -1,17 +1,17 @@
-import * as inquirer from 'inquirer';
-import { logger } from '../../utils/logger';
-import { exec } from '../../utils/exec';
+const inquirer = require('inquirer');
+const { logger } = require('../../utils/logger');
+const { exec } = require('../../utils/exec');
 
-import * as fs from 'fs-extra';
-import * as path from 'path';
-import { MONGO_MODULE_DOCS_LINK } from '../../constants';
+const fs = require('fs-extra');
+const path = require('path');
+const { MONGO_MODULE_DOCS_LINK } = require('../../constants');
 
-export async function addMongoModule() {
-  const uriPrompt: any = await inquirer.prompt({
+async function addMongoModule() {
+  const uriPrompt = await inquirer.prompt({
     name: 'Enter mongo uri',
   });
 
-  const uri: string = uriPrompt['Enter mongo uri'];
+  const uri = uriPrompt['Enter mongo uri'];
 
   logger.success('Installing', '@nestgram/mongo'.grey, 'and', 'mongoose'.grey + '...');
   await exec('yarn add @nestgram/mongo mongoose && yarn add @types/mongoose -D');
@@ -19,11 +19,11 @@ export async function addMongoModule() {
   logger.success('Applying changes...');
 
   try {
-    const appModulePath: string = path.resolve(process.cwd(), 'src', 'app.module.ts');
-    let text: string = (await fs.readFile(appModulePath)).toString();
+    const appModulePath = path.resolve(process.cwd(), 'src', 'app.module.ts');
+    let text = (await fs.readFile(appModulePath)).toString();
 
     if (text.includes('modules: [')) {
-      let replaceValue: string = `modules: [UseMongoConnection(config.get<string>('mongoUri'))`;
+      let replaceValue = `modules: [UseMongoConnection(config.get<string>('mongoUri'))`;
 
       if (text.match(/modules: \[.*?,]/)) {
         replaceValue += ', ';
@@ -37,15 +37,15 @@ export async function addMongoModule() {
       );
     }
 
-    const importText: string = `import { UseMongoConnection } from '@nestgram/mongo'`;
+    const importText = `import { UseMongoConnection } from '@nestgram/mongo'`;
     if (!text.includes(importText)) text = `${importText}\n${text}`;
 
-    let configText: string = (
+    let configText = (
       await fs.readFile(path.resolve(process.cwd(), 'config', 'default.json'))
     ).toString();
 
     if (configText) {
-      const importConfigText: string = `import * as config from 'config'`;
+      const importConfigText = `import * as config from 'config'`;
       if (!text.includes(importConfigText)) text = `${importConfigText}\n${text}`;
 
       if (!configText.includes('"mongoUri": "')) {
@@ -58,7 +58,7 @@ export async function addMongoModule() {
     await fs.writeFile(appModulePath, text);
     logger.success('Module added!');
     logger.info('You can read about mongo module here', MONGO_MODULE_DOCS_LINK);
-  } catch (e: any) {
+  } catch (e) {
     logger.realError(e);
 
     logger.error(
@@ -66,3 +66,5 @@ export async function addMongoModule() {
     );
   }
 }
+
+module.exports = { addMongoModule };

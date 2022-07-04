@@ -1,17 +1,17 @@
-import { logger } from '../../utils/logger';
-import { exec } from '../../utils/exec';
+const { logger } = require('../../utils/logger');
+const { exec } = require('../../utils/exec');
 
-import * as fs from 'fs-extra';
-import * as path from 'path';
-import * as inquirer from 'inquirer';
+const fs = require('fs-extra');
+const path = require('path');
+const inquirer = require('inquirer');
 
-export async function createNewProject(name: string): Promise<void> {
-  const tokenPrompt: any = await inquirer.prompt({
+async function createNewProject(name) {
+  const tokenPrompt = await inquirer.prompt({
     name: 'Enter bot token',
   });
 
-  const token: string = tokenPrompt['Enter bot token'];
-  const destPath: string = path.resolve(process.cwd(), name);
+  const token = tokenPrompt['Enter bot token'];
+  const destPath = path.resolve(process.cwd(), name);
 
   logger.success('Creating new project into', name.grey);
   await fs.copy(path.resolve(__dirname, '..', '..', '..', 'template'), destPath);
@@ -28,3 +28,5 @@ export async function createNewProject(name: string): Promise<void> {
   logger.success('Project created!');
   logger.info('Run project'.grey, `cd ${name} && npm run dev`);
 }
+
+module.exports = { createNewProject };

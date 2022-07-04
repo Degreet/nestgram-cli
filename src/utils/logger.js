@@ -1,23 +1,24 @@
-export class Logger {
-  log(...texts: string[]) {
+class Logger {
+  log(...texts) {
     console.log(...texts);
   }
 
-  success(...texts: string[]) {
+  success(...texts) {
     this.log(`[NestGram CLI]`.green, ...texts);
   }
 
-  info(...texts: string[]) {
+  info(...texts) {
     this.log(`[NestGram CLI]`.blue, ...texts);
   }
 
-  error(...texts: string[]) {
+  error(...texts) {
     this.log(`[NestGram CLI]`.red, ...texts);
   }
 
-  realError(...texts: string[]) {
+  realError(...texts) {
     this.log(`\n[RealError]`.bgRed, ...texts, `\n`);
   }
 }
 
-export const logger: Logger = new Logger();
+const logger = new Logger();
+module.exports = { Logger, logger };

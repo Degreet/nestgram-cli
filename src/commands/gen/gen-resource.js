@@ -1,27 +1,27 @@
-import { logger } from '../../utils/logger';
+const { logger } = require('../../utils/logger');
+const { exec } = require('../../utils/exec');
 
-import * as fs from 'fs-extra';
-import * as path from 'path';
-import { exec } from '../../utils/exec';
+const fs = require('fs-extra');
+const path = require('path');
 
-export async function genResource(name: string) {
+async function genResource(name) {
   name = name.toLowerCase();
 
-  const resourcePath: string = path.resolve(__dirname, '..', '..', '..', 'resource');
+  const resourcePath = path.resolve(__dirname, '..', '..', '..', 'resource');
   logger.success('Generating resource', name.grey + '...');
 
-  const className: string = name[0].toUpperCase() + name.slice(1);
+  const className = name[0].toUpperCase() + name.slice(1);
   await exec(`mkdir src/${name}`);
 
-  let moduleFileText: string = (
+  let moduleFileText = (
     await fs.readFile(path.resolve(resourcePath, 'module.ts'))
   ).toString();
 
-  let controllerFileText: string = (
+  let controllerFileText = (
     await fs.readFile(path.resolve(resourcePath, 'controller.ts'))
   ).toString();
 
-  let serviceFileText: string = (
+  let serviceFileText = (
     await fs.readFile(path.resolve(resourcePath, 'service.ts'))
   ).toString();
 
@@ -51,3 +51,5 @@ export async function genResource(name: string) {
 
   logger.success('Resource', name.grey, 'generated!');
 }
+
+module.exports = { genResource };
