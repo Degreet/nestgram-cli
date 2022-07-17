@@ -13,7 +13,7 @@ const { genResource } = require('./commands/gen/gen-resource');
 console.clear();
 logger.log(figlet.textSync('Nestgram CLI', { horizontalLayout: 'full' }).blue);
 
-program.name('Nestgram').version('1.5.0').description('The Nestgram CLI');
+program.name('Nestgram').version('1.5.1').description('The Nestgram CLI');
 
 program
   .command('new')
